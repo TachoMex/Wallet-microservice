@@ -7,9 +7,17 @@ module Controller
 
     class << self
       def create
+        table = resource(:database)
+        time = Time.now
+        id = table.insert(creation_date: time)
+        new(id, time)
       end
 
       def find(id)
+        table = resource(:database)
+        data = table.where(wallet_id: id).first
+        raise(WalletNotFound, id) if data.nil?
+        new(data[:wallet_id], data[:creation_date])
       end
     end
 
