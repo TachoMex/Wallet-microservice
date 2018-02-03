@@ -21,23 +21,39 @@ module Controller
       end
     end
 
+    def initialize(id, creation)
+      @id = id
+      @creation = creation
+      @dataset = self.class.resource(:database).where(wallet_id: id)
+    end
+
     def receive_money(amout)
+      raise(InvalidAmount, amount) if amount.negative?
       generate_transaction(amout)
     end
 
     def take_money(amount)
+      raise(InvalidAmount, amount) if amount.negative?
+      raise(InsufficientFounds, balance) if balance < amount
       generate_transaction(-amount)
     end
 
-    def balance(amount)
+    def balance
+      @balance ||= @dataset
+                   .inner_join(:transaction, %i[wallet_id])
+                   .sum(:amount) || 0
     end
 
     def transactions
+      Transaction.transactions_by_wallet(@id)
     end
 
     private
 
     def generate_transaction(amount)
+      transaction = Transaction.create(self, amount)
+      @balance += amount
+      transaction
     end
   end
 end
