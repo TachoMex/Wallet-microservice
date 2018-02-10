@@ -2,6 +2,8 @@ require 'grape'
 
 require './controller/wallet'
 
+Services.configure!
+
 module Routes
   class Transactions < Grape::API
     namespace :wallets do
@@ -18,7 +20,7 @@ module Routes
 
     namespace :transactions do
       route_param :transaction_id do
-        post :cofirm do
+        post :confirm do
           process_request do
             transaction = Controller::Transaction.find(params[:transaction_id])
             transaction.commit
