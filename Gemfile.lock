@@ -44,6 +44,12 @@ GEM
     rack (2.0.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-minitest (0.0.10)
+      json
+      minitest (~> 5.0)
+      rack-test
+    rack-test (0.8.2)
+      rack (>= 1.0, < 3)
     rake (12.3.0)
     ruby-ant-server (0.1.0)
       cute_logger (~> 0.1)
@@ -73,6 +79,7 @@ DEPENDENCIES
   minitest!
   mysql2!
   puma!
+  rack-minitest!
   rake!
   ruby-ant-server!
   safe_yaml!
