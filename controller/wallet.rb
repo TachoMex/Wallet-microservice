@@ -10,6 +10,12 @@ module Controller
         super('the amount is not valid', nil, amount: amount)
       end
     end
+    class InsufficientFounds < Ant::Exceptions::AntError
+      def initialize(balance, amount)
+        super('the amount is more than the balance', nil, balance: balance, amount: amount)
+      end
+    end
+    
 
     class << self
       def create
