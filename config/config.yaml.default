@@ -1,0 +1,2 @@
+database:
+  endpoint: 'mysql2://user:password@localhost/wallet'
