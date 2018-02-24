@@ -25,5 +25,17 @@ class TestWallets < Minitest::Test
     refute_nil(response['data']['wallet_id'])
     assert_equal(0, response['data']['balance'])
     assert_equal(Time.now.to_s, response['data']['creation_date'])
+    response['data']['wallet_id']
+  end
+
+  def test_receive_money
+    wallet_id = test_create_wallet
+    post("/api/wallets/#{wallet_id}/receive_money", amount: 100)
+    response = last_json_response
+    assert_equal(201, last_response.status)
+    assert_equal(response['status'], 'success')
+    assert_nil(response['data']['confirmation_date'])
+    assert_equal(response['data']['wallet_id'], wallet_id)
+    ap(response)
   end
 end
