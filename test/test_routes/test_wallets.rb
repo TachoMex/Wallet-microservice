@@ -38,4 +38,15 @@ class TestWallets < Minitest::Test
     assert_equal(response['data']['wallet_id'], wallet_id)
     ap(response)
   end
+
+  def test_receive_money_float
+    wallet_id = test_create_wallet
+    post("/api/wallets/#{wallet_id}/receive_money", amount: 100.2324)
+    response = last_json_response
+    assert_equal(201, last_response.status)
+    assert_equal(response['status'], 'success')
+    assert_nil(response['data']['confirmation_date'])
+    assert_equal(response['data']['wallet_id'], wallet_id)
+    ap(response)
+  end
 end
