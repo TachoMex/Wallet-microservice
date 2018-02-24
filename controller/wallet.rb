@@ -27,9 +27,9 @@ module Controller
       @dataset = self.class.resource(:database).where(wallet_id: id)
     end
 
-    def receive_money(amout)
+    def receive_money(amount)
       raise(InvalidAmount, amount) if amount.negative?
-      generate_transaction(amout)
+      generate_transaction(amount)
     end
 
     def take_money(amount)
