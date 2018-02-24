@@ -24,7 +24,10 @@ module Routes
             wallet.take_money(params[:amount])
           end
         end
-
+        params do
+          requires :amount, type: Float
+          requires :wallet_id, type: Integer
+        end
         post :receive_money do
           process_request do
             wallet = Controller::Wallet.find(params[:wallet_id])
