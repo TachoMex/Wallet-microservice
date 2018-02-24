@@ -4,6 +4,7 @@ require_relative 'transaction'
 module Controller
   class Wallet
     extend DependencyInjector
+    attr_reader :id
 
     class << self
       def create
