@@ -15,7 +15,11 @@ module Controller
         super('the amount is more than the balance', nil, balance: balance, amount: amount)
       end
     end
-    
+    class WalletNotFound < Ant::Exceptions::AntFail
+      def initialize(id)
+        super('wallet id not send', nil, id: id)
+      end
+    end
 
     class << self
       def create
