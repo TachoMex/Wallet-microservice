@@ -57,4 +57,11 @@ class TestWallets < Minitest::Test
     assert_equal(response['status'], 'fail')
     ap(response)
   end
+
+  def test_fatal_receive_money
+    post("/api/wallets/-1/receive_money", amount: -100)
+    response = last_json_response
+    ap(response)
+    assert_equal(response['status'], 'fail')
+  end
 end
