@@ -1,3 +1,3 @@
-require_relative 'service'
+require_relative 'wallet_service'
 
 run WalletService
