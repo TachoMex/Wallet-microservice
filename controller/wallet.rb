@@ -5,6 +5,11 @@ module Controller
   class Wallet
     extend DependencyInjector
     attr_reader :id
+    class InvalidAmount < Ant::Exceptions::AntFail
+      def initialize(amount)
+        super('the amount is not valid', nil, amount: amount)
+      end
+    end
 
     class << self
       def create
@@ -35,7 +40,7 @@ module Controller
 
     def take_money(amount)
       raise(InvalidAmount, amount) if amount.negative?
-      raise(InsufficientFounds, balance) if balance < amount
+      raise(InsufficientFounds, balance, amount) if balance < amount
       generate_transaction(-amount)
     end
 
