@@ -48,10 +48,19 @@ module Controller
       Transaction.transactions_by_wallet(@id)
     end
 
+    def to_json(options)
+      {
+        wallet_id: @id,
+        creation_date: @creation,
+        balance: balance
+      }.to_json(options)
+    end
+
     private
 
     def generate_transaction(amount)
       transaction = Transaction.create(self, amount)
+      balance # make @balance be initialized
       @balance += amount
       transaction
     end

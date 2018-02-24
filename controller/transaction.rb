@@ -1,5 +1,6 @@
 module Controller
   class Transaction
+    extend DependencyInjector
     class << self
       def create(wallet, amount)
         db = resource(:database)
@@ -40,6 +41,16 @@ module Controller
     def commit
       @confirmation_date = Time.now
       @dataset.update(confirmation_date: @confirmation_date)
+    end
+
+    def to_json(options)
+      {
+        transaction_id: @id,
+        wallet_id: @wallet_id,
+        entry_date: @entry_date,
+        amount: @amount,
+        confirmation_date: @confirmation_date
+      }.to_json(options)
     end
   end
 end
