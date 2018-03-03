@@ -50,7 +50,7 @@ module Controller
 
     def take_money(amount)
       raise(InvalidAmount, amount) if amount.negative?
-      raise(InsufficientFounds, balance, amount) if balance < amount
+      raise(InsufficientFounds.new(balance, amount)) if balance < amount
       generate_transaction(-amount)
     end
 
