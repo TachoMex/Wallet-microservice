@@ -15,7 +15,7 @@ class WalletService < Grape::API
   prefix(:api)
   format(:json)
 
-  helpers Ant::Response
+  helpers Ant::Server::Response
   mount Routes::Wallets
   mount Routes::Transactions
 end

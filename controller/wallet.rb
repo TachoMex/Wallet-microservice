@@ -1,9 +1,8 @@
-require './lib/dependency_injector'
 require_relative 'transaction'
 
 module Controller
   class Wallet
-    extend DependencyInjector
+    extend Ant::DRY::ResourceInjector
     attr_reader :id
     class InvalidAmount < Ant::Exceptions::AntFail
       def initialize(amount)

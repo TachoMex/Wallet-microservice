@@ -1,6 +1,6 @@
 module Controller
   class Transaction
-    extend DependencyInjector
+    extend Ant::DRY::ResourceInjector
     class << self
       def create(wallet, amount)
         db = resource(:database)
