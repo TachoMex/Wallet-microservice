@@ -16,11 +16,11 @@ class TestWallets < Minitest::Test
     @database.run('ROLLBACK;')
   end
 
-  def assert_jsend_status(status = 'success')
+  def assert_jsend_status(status = 'success', http_status = 201)
     response = last_json_response
     assert_equal(response['status'], status)
     refute_nil(response['data'])
-    assert_equal(2, last_response.status / 100)
+    assert_equal(http_status, last_response.status)
     response['data']
   end
 
@@ -54,12 +54,12 @@ class TestWallets < Minitest::Test
   def test_fail_receive_money
     wallet_id = test_create_wallet
     post("/api/wallets/#{wallet_id}/receive_money", amount: -100)
-    assert_jsend_status('fail')
+    assert_jsend_status('fail', 400)
   end
 
   def test_fatal_receive_money
     post('/api/wallets/-1/receive_money', amount: 100)
-    assert_jsend_status('fail')
+    assert_jsend_status('fail', 400)
   end
 
   def test_take_money
@@ -70,13 +70,13 @@ class TestWallets < Minitest::Test
     assert_equal(-20, response['amount'])
 
     get("api/wallets/#{id}")
-    data = assert_jsend_status
+    data = assert_jsend_status('success', 200)
     assert_equal(data['balance'], 30)
   end
 
   def test_take_money_not_enough
     id = test_create_wallet
     post("api/wallets/#{id}/take_money", amount: 20)
-    assert_jsend_status('error')
+    assert_jsend_status('error', 500)
   end
 end
