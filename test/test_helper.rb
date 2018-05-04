@@ -1,5 +1,4 @@
 require 'simplecov'
-require 'minitest/test'
 require 'minitest/autorun'
 require 'rack-minitest/test'
 
