@@ -6,9 +6,7 @@ module Routes
   class Wallets < Grape::API
     namespace :wallets do
       post do
-        process_request do
-          Controller::Wallet.create
-        end
+        Controller::Wallet.create
       end
 
       route_param :wallet_id do
@@ -16,9 +14,7 @@ module Routes
           requires :wallet_id, type: Integer
         end
         get do
-          process_request do
-            Controller::Wallet.find(params[:wallet_id])
-          end
+          Controller::Wallet.find(params[:wallet_id])
         end
 
         params do
@@ -26,10 +22,8 @@ module Routes
           requires :wallet_id, type: Integer
         end
         post :take_money do
-          process_request do
-            wallet = Controller::Wallet.find(params[:wallet_id])
-            wallet.take_money(params[:amount])
-          end
+          wallet = Controller::Wallet.find(params[:wallet_id])
+          wallet.take_money(params[:amount])
         end
 
         params do
@@ -37,10 +31,8 @@ module Routes
           requires :wallet_id, type: Integer
         end
         post :receive_money do
-          process_request do
-            wallet = Controller::Wallet.find(params[:wallet_id])
-            wallet.receive_money(params[:amount])
-          end
+          wallet = Controller::Wallet.find(params[:wallet_id])
+          wallet.receive_money(params[:amount])
         end
       end
     end

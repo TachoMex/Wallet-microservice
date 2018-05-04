@@ -2,6 +2,7 @@ require 'cute_logger'
 require 'sequel'
 require 'puma'
 require 'ant'
+require 'ant/server/grape'
 
 require_relative 'lib/services'
 require_relative 'routes/wallets'
@@ -15,7 +16,7 @@ class WalletService < Grape::API
   prefix(:api)
   format(:json)
 
-  helpers Ant::Server::Response
+  include Ant::Server::GrapeDecorator
   mount Routes::Wallets
   mount Routes::Transactions
 end
