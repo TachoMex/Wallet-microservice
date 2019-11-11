@@ -1,13 +1,16 @@
 source 'https://rubygems.org' do
-  gem 'cute_logger'
+  gem 'ant-logger'
+  gem 'ant-server'
   gem 'grape'
-  gem 'minitest'
   gem 'mysql2'
   gem 'puma'
-  gem 'rack-minitest'
   gem 'rake'
-  gem 'ruby-ant-server'
   gem 'safe_yaml'
   gem 'sequel'
-  gem 'simplecov'
+  group :testing do
+    gem 'minitest'
+    gem 'pry'
+    gem 'rack-minitest'
+    gem 'simplecov'
+  end
 end
