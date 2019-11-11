@@ -32,6 +32,7 @@ module Routes
         end
         post :receive_money do
           wallet = Controller::Wallet.find(params[:wallet_id])
+          log_info('Wallet received money', wallet: params[:wallet_id])
           wallet.receive_money(params[:amount])
         end
       end
